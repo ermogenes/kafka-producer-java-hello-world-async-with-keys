@@ -1,5 +1,5 @@
-# kafka-producer-java-hello-world-async
-A simple Java Kafka async producer.
+# kafka-producer-java-hello-world-async-with-keys
+A simple Java Kafka async producer with keys.
 
 ## Dependencies (`pom.xml`)
 
@@ -40,7 +40,10 @@ properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSeria
 KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
 
 for (int i = 0; i < 10; i++) {
-    ProducerRecord<String, String> record = new ProducerRecord<String,String>(topic, message + " #" + Integer.toString(i));
+    String key = "id_#_" + Integer.toString(i);
+    String value = message + " #" + Integer.toString(i);
+
+    ProducerRecord<String, String> record = new ProducerRecord<String,String>(topic, key, value);
 
     producer.send(record, new Callback() {
         public void onCompletion(RecordMetadata recordMetadata, Exception e) {

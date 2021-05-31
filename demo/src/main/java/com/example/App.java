@@ -45,8 +45,11 @@ public final class App {
 
         // produce some records
         for (int i = 0; i < 10; i++) {
+            String key = "id_#_" + Integer.toString(i);
+            String value = message + " #" + Integer.toString(i);
+
             // create a producer record
-            ProducerRecord<String, String> record = new ProducerRecord<String,String>(topic, message + " #" + Integer.toString(i));
+            ProducerRecord<String, String> record = new ProducerRecord<String,String>(topic, key, value);
 
             // send data async
             producer.send(record, new Callback() {
